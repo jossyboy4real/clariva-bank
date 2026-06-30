@@ -183,6 +183,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            const depositSubmit = depositForm.querySelector(".modal-submit") || depositForm.querySelector("button[type='submit']");
+            let originalText = "";
+            if (depositSubmit) {
+                depositSubmit.disabled = true;
+                originalText = depositSubmit.innerHTML;
+                depositSubmit.innerHTML = `Processing... <i class="bi bi-hourglass-split"></i>`;
+            }
+
             try {
                 const userDocRef = doc(db, "users", currentLoggedUserDocId);
                 const userUid = auth.currentUser.uid;
@@ -235,6 +243,11 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (err) {
                 console.error("Deposit processing failure:", err);
                 Swal.fire("Transaction Aborted", "Could not complete top-up sequence.", "error");
+            } finally {
+                if (depositSubmit) {
+                    depositSubmit.innerHTML = originalText;
+                    depositSubmit.disabled = false;
+                }
             }
         });
     }
@@ -537,7 +550,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             airtimeSubmit.disabled = true;
+            const originalText = airtimeSubmit.innerHTML;
+            airtimeSubmit.innerHTML = `Processing... <i class="bi bi-hourglass-split"></i>`;
             const success = await processUtilityPurchase("Airtime Payment", amount, `Airtime top-up for +234${phone}`);
+            airtimeSubmit.innerHTML = originalText;
             airtimeSubmit.disabled = false;
 
             if (success && typeof window.nextStep === "function") {
@@ -562,7 +578,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             internetSubmit.disabled = true;
+            const originalText = internetSubmit.innerHTML;
+            internetSubmit.innerHTML = `Processing... <i class="bi bi-hourglass-split"></i>`;
             const success = await processUtilityPurchase("Internet Purchase", planPrice, `${planName} to +234${phone}`);
+            internetSubmit.innerHTML = originalText;
             internetSubmit.disabled = false;
 
             if (success && typeof window.nextStep === "function") {
@@ -587,7 +606,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             bettingSubmit.disabled = true;
+            const originalText = bettingSubmit.innerHTML;
+            bettingSubmit.innerHTML = `Processing... <i class="bi bi-hourglass-split"></i>`;
             const success = await processUtilityPurchase("Betting Wallet Funding", amount, `${provider} (User ID: ${userId})`);
+            bettingSubmit.innerHTML = originalText;
             bettingSubmit.disabled = false;
 
             if (success && typeof window.nextStep === "function") {
@@ -613,7 +635,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             electricitySubmit.disabled = true;
+            const originalText = electricitySubmit.innerHTML;
+            electricitySubmit.innerHTML = `Processing... <i class="bi bi-hourglass-split"></i>`;
             const success = await processUtilityPurchase("Electricity Bill", amount, `${disco} (${meterType}) - Meter: ${meterNum}`);
+            electricitySubmit.innerHTML = originalText;
             electricitySubmit.disabled = false;
 
             if (success && typeof window.nextStep === "function") {
