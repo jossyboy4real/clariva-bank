@@ -158,9 +158,9 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-// ==========================================
+
 // DEPOSIT, LOOKUP & PEER TRANSFER ENGINE
-// ==========================================
+
 document.addEventListener("DOMContentLoaded", () => {
     const depositForm = document.getElementById("depositForm");
     const recipientAcctInput = document.getElementById("transfer-account");
@@ -170,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const noteInput = document.getElementById("transfer-note");
     const transferContinueBtn = document.getElementById("transferContinueBtn");
 
+  
     // ACTIVE CASH DEPOSIT / ADD MONEY SYSTEM ---
     if (depositForm) {
         depositForm.addEventListener("submit", async (e) => {

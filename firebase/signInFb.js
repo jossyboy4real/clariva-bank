@@ -1,8 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
     apiKey: "AIzaSyCN-IGECBY_PoTy4lW4OUU5WaVHx1q2A4s",
     authDomain: "clariva-297a8.firebaseapp.com",
@@ -13,18 +12,15 @@ const firebaseConfig = {
     measurementId: "G-DED0W0JKWR"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // --- Email Sign In ---
-
-// Renamed to avoid conflicts
 const emailSignInBtn = document.getElementById("signInBtn");
 
 if (emailSignInBtn) {
     emailSignInBtn.addEventListener("click", () => {
-        // Correctly grabbing the input elements to check them
+       
         const emailInput = document.getElementById("email");
         const passwordInput = document.getElementById("password");
 
@@ -49,7 +45,6 @@ if (emailSignInBtn) {
             .then((userCredential) => {
                 console.log(userCredential.user);
 
-                // Moved successful SweetAlert here so it only triggers on actual success
                 Swal.fire({
                     title: 'Login Successful!',
                     text: 'Your account is successfully logged in.',
@@ -70,6 +65,8 @@ if (emailSignInBtn) {
             });
     });
 }
+
+
 
 // --- Google Sign In ---
 
