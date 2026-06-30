@@ -163,6 +163,16 @@
                                         </div>
                                     </div>
 
+                                    <div class="phone-input-wrap" id="transfer-recipient-name-wrap" style="margin-bottom: 12px; display: none;">
+                                        <div class="phone-input-inner" style="background: rgba(255, 255, 255, 0.03);">
+                                            <i class="ti ti-user"
+                                                style="margin-left: 12px; color: rgba(255,255,255,0.4)"></i>
+                                            <input type="text" id="transfer-recipient-name" readonly
+                                                placeholder="Recipient name"
+                                                style="padding-left: 10px; color: #34d399; font-weight: 500; border: none; background: transparent; outline: none; width: 100%;">
+                                        </div>
+                                    </div>
+
                                     <div class="phone-input-wrap" style="margin-bottom: 12px;">
                                         <div class="phone-input-inner">
                                             <i class="ti ti-building-bank"
@@ -198,7 +208,7 @@
                                     </div>
 
                                     <div class="submit-btn-wrap" style="margin-top: 20px;">
-                                        <button class="submit-btn" onclick="showPinStep('transfer')">Continue <i
+                                        <button class="submit-btn" id="transferContinueBtn" onclick="showPinStep('transfer')" disabled>Continue <i
                                                 class="ti ti-arrow-right"></i></button>
                                     </div>
                                 </div>
@@ -218,7 +228,7 @@
                                             style="text-align:left;margin-top:8px;">Enter your 4-digit PIN to continue.
                                         </div>
                                         <div class="submit-btn-wrap" style="padding: 12px 0 0;">
-                                            <button class="submit-btn" onclick="nextStep('transfer')">Confirm
+                                            <button class="submit-btn" id="confirmSend" disabled>Confirm
                                                 Transfer</button>
                                         </div>
                                     </div>

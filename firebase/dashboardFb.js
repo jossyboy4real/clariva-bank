@@ -163,11 +163,12 @@ onAuthStateChanged(auth, async (user) => {
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
     const depositForm = document.getElementById("depositForm");
-    const recipientAcctInput = document.getElementById("recipientAcct");
-    const recipientNameInput = document.getElementById("recipientName");
+    const recipientAcctInput = document.getElementById("transfer-account");
+    const recipientNameInput = document.getElementById("transfer-recipient-name");
     const confirmSendBtn = document.getElementById("confirmSend");
-    const amountInput = document.getElementById("amountInput");
-    const noteInput = document.getElementById("noteInput");
+    const amountInput = document.getElementById("transfer-amount");
+    const noteInput = document.getElementById("transfer-note");
+    const transferContinueBtn = document.getElementById("transferContinueBtn");
 
     // ACTIVE CASH DEPOSIT / ADD MONEY SYSTEM ---
     if (depositForm) {
@@ -241,46 +242,70 @@ document.addEventListener("DOMContentLoaded", () => {
         if (recipientAcctInput) {
             recipientAcctInput.addEventListener("input", async () => {
                 const acctNumberStr = recipientAcctInput.value.replace(/\s+/g, '');
+                const nameWrap = document.getElementById("transfer-recipient-name-wrap");
 
                 if (acctNumberStr.length === 10) {
                     if (recipientNameInput) recipientNameInput.value = "Verifying account data...";
+                    if (nameWrap) nameWrap.style.display = "block";
 
                     try {
                         const usersRef = collection(db, "users");
-                        const qStr = query(usersRef, where("accountNumber", "==", String(acctNumberStr)));
-                        const snapStr = await getDocs(qStr);
+                        const qStr = query(usersRef, where("accountNumber", "==", Number(acctNumberStr)));
+                        let snapStr = await getDocs(qStr);
+
+                        if (snapStr.empty) {
+                            const qStr2 = query(usersRef, where("accountNumber", "==", String(acctNumberStr)));
+                            snapStr = await getDocs(qStr2);
+                        }
 
                         if (!snapStr.empty) {
                             targetRecipientDocId = snapStr.docs[0].id;
                             targetRecipientData = snapStr.docs[0].data();
 
                             if (auth.currentUser && targetRecipientData.uid === auth.currentUser.uid) {
-                                if (recipientNameInput) recipientNameInput.value = "You cannot transfer to yourself";
+                                if (recipientNameInput) {
+                                    recipientNameInput.value = "You cannot transfer to yourself";
+                                    recipientNameInput.style.color = "#f87171";
+                                }
+                                if (transferContinueBtn) transferContinueBtn.disabled = true;
                                 if (confirmSendBtn) confirmSendBtn.disabled = true;
                                 targetRecipientDocId = null;
                             } else {
-                                if (recipientNameInput) recipientNameInput.value = targetRecipientData.fullname || "Unnamed Account";
+                                if (recipientNameInput) {
+                                    recipientNameInput.value = targetRecipientData.fullname || "Unnamed Account";
+                                    recipientNameInput.style.color = "#34d399";
+                                }
+                                if (transferContinueBtn) transferContinueBtn.disabled = false;
                                 if (confirmSendBtn) confirmSendBtn.disabled = false;
                             }
                         } else {
-                            if (recipientNameInput) recipientNameInput.value = "Account number not found";
+                            if (recipientNameInput) {
+                                recipientNameInput.value = "Account number not found";
+                                recipientNameInput.style.color = "#f87171";
+                            }
+                            if (transferContinueBtn) transferContinueBtn.disabled = true;
                             if (confirmSendBtn) confirmSendBtn.disabled = true;
                             targetRecipientDocId = null;
                         }
                     } catch (error) {
                         console.error("Error looking up recipient account:", error);
-                        if (recipientNameInput) recipientNameInput.value = "Error executing lookup";
+                        if (recipientNameInput) {
+                            recipientNameInput.value = "Error executing lookup";
+                            recipientNameInput.style.color = "#f87171";
+                        }
+                        if (transferContinueBtn) transferContinueBtn.disabled = true;
                         if (confirmSendBtn) confirmSendBtn.disabled = true;
                     }
                 } else {
                     if (recipientNameInput) recipientNameInput.value = "";
+                    if (nameWrap) nameWrap.style.display = "none";
+                    if (transferContinueBtn) transferContinueBtn.disabled = true;
                     if (confirmSendBtn) confirmSendBtn.disabled = true;
                     targetRecipientDocId = null;
                 }
             });
         }
 
-    
     if (confirmSendBtn) {
         confirmSendBtn.addEventListener("click", async (e) => {
             e.preventDefault();
@@ -288,6 +313,20 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!auth.currentUser || !currentLoggedUserDocId || !targetRecipientDocId) {
                 Swal.fire("Error", "Authentication or recipient mapping is incomplete.", "error");
                 return;
+            }
+
+            const pinBoxes = document.querySelectorAll("#transfer-pinboxes .pin-box");
+            let pinVal = "";
+            pinBoxes.forEach(p => pinVal += p.value);
+
+            if (pinVal.length < 4) {
+                if (typeof window.showPinError === "function") {
+                    window.showPinError("transfer", pinBoxes);
+                }
+                return;
+            }
+            if (typeof window.hidePinError === "function") {
+                window.hidePinError("transfer");
             }
 
             const transferAmount = parseFloat(amountInput.value);
@@ -345,7 +384,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 });
 
-                
                 currentLoggedUserData.balance = parseFloat(currentLoggedUserData.balance) - transferAmount;
                 const balanceDisplay = document.getElementById("displayBal");
                 if (balanceDisplay) {
@@ -355,7 +393,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 }
 
-               
                 document.querySelectorAll(".balance-strip-val").forEach(strip => {
                     strip.textContent = Number(currentLoggedUserData.balance).toLocaleString("en-NG", {
                         style: "currency",
@@ -363,18 +400,32 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 });
 
-                document.querySelector('[data-step="1"]')?.classList.remove('active');
-                document.querySelector('[data-step="2"]')?.classList.add('active');
+                // Switch modal step to success page
+                const transferPin = document.getElementById("transfer-pin");
+                const transferStep2 = document.getElementById("transfer-step2");
+                if (transferPin) transferPin.classList.remove("active");
+                if (transferStep2) transferStep2.classList.add("active");
 
-                const successSub = document.getElementById("successSub");
-                if (successSub) {
-                    successSub.textContent = `Successfully transferred ₦${transferAmount.toLocaleString('en-NG')} to ${targetRecipientData.fullname}`;
+                const receipt = document.getElementById("transfer-receipt");
+                if (receipt) {
+                    const acct = recipientAcctInput ? recipientAcctInput.value : '—';
+                    const bank = document.getElementById("transfer-bank")?.value || '—';
+                    const note = noteInput ? noteInput.value : 'None';
+                    const row = (label, val) => `<div class="success-row"><span class="success-row-label">${label}</span><span class="success-row-val">${val}</span></div>`;
+                    const fmt = (n) => '₦' + Number(n).toLocaleString('en-NG', { minimumFractionDigits: 2 });
+                    receipt.innerHTML = row('Recipient', acct) + row('Bank', bank) + row('Amount', fmt(transferAmount)) + row('Note', note) + row('Status', '<span style="color:#34d399">Success</span>');
                 }
 
                 if (recipientAcctInput) recipientAcctInput.value = "";
                 if (recipientNameInput) recipientNameInput.value = "";
                 if (amountInput) amountInput.value = "";
                 if (noteInput) noteInput.value = "";
+
+                const nameWrap = document.getElementById("transfer-recipient-name-wrap");
+                if (nameWrap) nameWrap.style.display = "none";
+
+                if (transferContinueBtn) transferContinueBtn.disabled = true;
+                if (confirmSendBtn) confirmSendBtn.disabled = true;
 
                 fetchTransactionHistory(senderUid);
 
@@ -383,7 +434,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 Swal.fire("Transfer Blocked", "Database synchronization failed. Please try again.", "error");
             } finally {
                 confirmSendBtn.disabled = false;
-                confirmSendBtn.innerHTML = `Confirm & send <i class="ti ti-send"></i>`;
+                confirmSendBtn.innerHTML = `Confirm Transfer`;
             }
         });
     }
