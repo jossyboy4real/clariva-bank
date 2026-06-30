@@ -1,0 +1,277 @@
+/* === TRANSACTION HISTORY PAGE === */
+
+.hist-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.hist-stat {
+    background: #161616;
+    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px 18px;
+}
+
+.hist-stat .stat-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+}
+
+.hist-stat .stat-val {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+}
+
+/* === TOOLBAR === */
+
+.hist-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.search-wrap {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 9px 14px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.search-wrap input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 13px;
+}
+
+.search-wrap input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.range-select {
+    background: rgba(255, 255, 255, 0.04);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 13px;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+}
+
+.range-select option {
+    background: #161616;
+    color: #fff;
+}
+
+.export-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 9px 14px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    transition: all 0.12s;
+    white-space: nowrap;
+}
+
+.export-btn:hover {
+    background: rgba(255, 255, 255, 0.09);
+    color: #fff;
+}
+
+/* === TABLE === */
+
+.hist-table-wrap {
+    padding: 8px 0 0;
+    overflow-x: auto;
+}
+
+.hist-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.hist-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.4px;
+    padding: 8px 24px 14px;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+}
+
+.hist-table th.col-amt,
+.hist-table td.col-amt {
+    text-align: right;
+}
+
+.hist-table td {
+    padding: 14px 24px;
+    font-size: 13px;
+    color: #fff;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+    vertical-align: middle;
+}
+
+.hist-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.hist-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.tx-desc-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tx-icon-sm {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+}
+
+.tx-name {
+    font-weight: 500;
+}
+
+.tx-note {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 2px;
+}
+
+.tx-date-cell {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.status-completed {
+    background: rgba(52, 211, 153, 0.12);
+    color: #34d399;
+}
+
+.status-pending {
+    background: rgba(250, 204, 21, 0.12);
+    color: #facc15;
+}
+
+.status-failed {
+    background: rgba(248, 113, 113, 0.12);
+    color: #f87171;
+}
+
+/* === EMPTY STATE === */
+
+.hist-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 64px 0;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.hist-empty i {
+    font-size: 32px;
+    margin-bottom: 12px;
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.hist-empty p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4px;
+}
+
+.hist-empty span {
+    font-size: 12px;
+}
+
+/* === PAGINATION === */
+
+.hist-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.page-btns {
+    display: flex;
+    gap: 8px;
+}
+
+.page-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.12s;
+}
+
+.page-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.09);
+    color: #fff;
+}
+
+.page-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+@media (max-width: 860px) {
+    .hist-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .hist-table th:nth-child(2),
+    .hist-table td:nth-child(2) {
+        display: none;
+    }
+}

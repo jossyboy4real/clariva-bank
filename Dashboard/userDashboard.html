@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../images/clariva-logo.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/userDashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Source+Sans+3:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <title>Clariva Bank</title>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <header>
+
+            <div>
+
+                <div class="logo">
+                    <img src="../images/clariva-logo.png" alt="">
+                    <h1>Clariva <span>Bank</span></h1>
+                </div>
+                <div class="navbar">
+                    <nav>
+                        <ul>
+                            <li><a class="nav-link active" data-section="dashboard">Dashboard</a></li>
+                            <li><a class="nav-link" data-section="transaction">Transactions</a></li>
+                            <li><a class="nav-link" data-section="card">Card</a></li>
+                            <li><a class="nav-link" data-section="analytics">Analytics</a></li>
+                            <li><a class="nav-link" data-section="settings">Settings</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="nav-down">
+                <button id="signOut">Sign out</button>
+            </div>
+        </header>
+
+        <!-- RIGHT SIDE CONTENT -->
+        <div class="dash-content">
+
+            <!-- ============================================
+                 SECTION: DASHBOARD
+                 ============================================ -->
+            <div class="page-section is-active" id="section-dashboard">
+
+                <div class="dash-up">
+                    <div>
+                        <p>My Dashboard</p>
+                    </div>
+
+                    <div class="nav-right">
+                        <button class="nav-icon" aria-label="Notifications" style="position:relative">
+                            <i class="ti ti-bell"></i>
+                            <span
+                                style="position:absolute;top:7px;right:7px;width:6px;height:6px;background:#a855f7;border-radius:50%;border:1.5px solid #161616"></span>
+                        </button>
+                        <div class="nav-avatar" id="firstLetter"></div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:1.5rem">
+                    <p style="font-size:14px;color:rgba(255, 255, 255, 0.526)">Welcome back, <span id="userName"
+                            style="font-size:20px;font-weight:500;color: rgb(122, 64, 237);"></span></p>
+                </div>
+
+                <div class="main-grid">
+                    <div>
+                        <div class="bank-card">
+                            <div class="bc-shimmer"></div>
+                            <div class="bc-shimmer2"></div>
+                            <div class="bc-top">
+                                <span class="bc-label-top">Clariva Bank</span>
+                                <div class="bc-chip-icon">
+                                    <div class="bc-chip-cell"></div>
+                                    <div class="bc-chip-cell"></div>
+                                    <div class="bc-chip-cell"></div>
+                                    <div class="bc-chip-cell"></div>
+                                    <div class="bc-chip-cell"></div>
+                                    <div class="bc-chip-cell"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="bc-bottom">
+                                    <div class="bc-acct-group">
+
+                                        <span class="bc-name">Account Balance</span>
+                                        <div class="bal-row">
+
+                                            <div id="displayBal">loading....</div>
+
+
+                                        </div>
+
+                                        <span class="bc-name">Account Number</span>
+                                        <div class="bc-name" id="accountNumber">loading....</div>
+                                    </div>
+                                    <span class="bc-expiry">Expires 06/31</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="action-btns">
+                            <button class="act act-transfer" onclick="openModal('transfer')">
+                                <i class="bi bi-arrow-up-right"></i> Transfer
+                            </button>
+                            <button class="act act-topup" id="showAddMoneyBtn">
+                                <i class="bi bi-plus-circle"></i> Add Money
+                            </button>
+                            <button class="act act-airtime" onclick="openModal('airtime')">
+                                <i class="ti ti-phone"></i> Airtime
+                            </button>
+                            <button class="act act-internet" onclick="openModal('internet')">
+                                <i class="ti ti-wifi"></i> Internet
+                            </button>
+                            <button class="act act-betting" onclick="openModal('betting')">
+                                <i class="ti ti-trophy"></i> Betting
+                            </button>
+                            <button class="act act-electricity" onclick="openModal('electricity')">
+                                <i class="ti ti-bolt"></i> Electricity
+                            </button>
+                        </div>
+
+                        <!-- ============ TRANSFER MODAL ============ -->
+                        <div class="modal-overlay" id="modal-transfer">
+                            <div class="modal-box">
+                                <div class="drag-handle"></div>
+                                <div class="modal-head">
+                                    <div class="modal-head-icon transfer"><i class="ti ti-send"></i></div>
+                                    <div class="modal-head-text">
+                                        <div class="modal-title">Send money</div>
+                                        <div class="modal-subtitle">Transfer to any bank account</div>
+                                    </div>
+                                    <button class="modal-close" onclick="closeModal('transfer')"><i
+                                            class="ti ti-x"></i></button>
+                                </div>
+
+                                <div class="modal-step active" id="transfer-step1">
+                                    <div class="balance-strip">
+                                        <span class="balance-strip-label">Available balance</span>
+                                        <span class="balance-strip-val">₦24,810.50</span>
+                                    </div>
+
+                                    <div class="section-label">Recipient details</div>
+                                    <div class="phone-input-wrap" style="margin-bottom: 12px;">
+                                        <div class="phone-input-inner">
+                                            <i class="ti ti-credit-card"
+                                                style="margin-left: 12px; color: rgba(255,255,255,0.4)"></i>
+                                            <input type="text" id="transfer-account"
+                                                placeholder="Enter 10-digit account number" maxlength="10"
+                                                style="padding-left: 10px;">
+                                        </div>
+                                    </div>
+
+                                    <div class="phone-input-wrap" style="margin-bottom: 12px;">
+                                        <div class="phone-input-inner">
+                                            <i class="ti ti-building-bank"
+                                                style="margin-left: 12px; color: rgba(255,255,255,0.4)"></i>
+                                            <select id="transfer-bank"
+                                                style="background: none; border: none; color: #fff; width: 100%; padding: 12px 10px; outline: none;">
+                                                <option value="" style="background: #161616;">Select bank</option>
+                                                <option style="background: #161616;">Clariva Bank</option>
+                                                <option style="background: #161616;">Access Bank</option>
+                                                <option style="background: #161616;">GTBank</option>
+                                                <option style="background: #161616;">Zenith Bank</option>
+                                                <option style="background: #161616;">First Bank</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="section-label">Amount</div>
+                                    <div class="amount-input-wrap">
+                                        <div class="amount-field">
+                                            <span class="amount-symbol">₦</span>
+                                            <input type="number" id="transfer-amount" placeholder="0.00">
+                                        </div>
+                                    </div>
+
+                                    <div class="section-label">Note (optional)</div>
+                                    <div class="phone-input-wrap">
+                                        <div class="phone-input-inner">
+                                            <i class="ti ti-note"
+                                                style="margin-left: 12px; color: rgba(255,255,255,0.4)"></i>
+                                            <input type="text" id="transfer-note" placeholder="What's this for?"
+                                                style="padding-left: 10px;">
+                                        </div>
+                                    </div>
+
+                                    <div class="submit-btn-wrap" style="margin-top: 20px;">
+                                        <button class="submit-btn" onclick="showPinStep('transfer')">Continue <i
+                                                class="ti ti-arrow-right"></i></button>
+                                    </div>
+                                </div>
+
+                                <!-- PIN STEP -->
+                                <div class="modal-step" id="transfer-pin">
+                                    <div style="padding: 20px 22px;">
+                                        <div class="section-label">Enter Transaction PIN</div>
+                                        <div class="pin-boxes" id="transfer-pinboxes"
+                                            style="justify-content:flex-start;">
+                                            <input type="password" maxlength="1" class="pin-box">
+                                            <input type="password" maxlength="1" class="pin-box">
+                                            <input type="password" maxlength="1" class="pin-box">
+                                            <input type="password" maxlength="1" class="pin-box">
+                                        </div>
+                                        <div class="pin-error" id="transfer-pinError"
+                                            style="text-align:left;margin-top:8px;">Enter your 4-digit PIN to continue.
+                                        </div>
+                                        <div class="submit-btn-wrap" style="padding: 12px 0 0;">
+                                            <button class="submit-btn" onclick="nextStep('transfer')">Confirm
+                                                Transfer</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-step" id="transfer-step2">
+                                    <div class="success-body">
+                                        <div class="success-icon-circle"><i class="ti ti-check"></i></div>
+                                        <div class="success-title">Transfer successful!</div>
+                                        <div class="success-sub">Your money is on its way.</div>
+                                        <div class="success-detail" id="transfer-receipt"></div>
+                                        <button class="done-btn" onclick="closeModal('transfer')">Done</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ============ AIRTIME MODAL ============ -->
+                        <div class="modal-overlay" id="modal-airtime">
+                            <div class="modal-box">
+                                <div class="drag-handle"></div>
+                                <div class="modal-head">
+                                    <div class="modal-head-icon airtime"><i class="ti ti-phone"></i></div>
+                                    <div class="modal-head-text">
+                                        <div class="modal-title">Buy airtime</div>
+                                        <div class="modal-subtitle">Top up any Nigerian number</div>
+                                    </div>
+                                    <button class="modal-close" onclick="closeModal('airtime')"><i
+                                            class="ti ti-x"></i></button>
+                                </div>
+
+                                <div class="modal-step active" id="airtime-step1">
+                                    <div class="balance-strip">
+                                        <span class="balance-strip-label">Available balance</span>
+                                        <span class="balance-strip-val">₦24,810.50</span>
+                                    </div>
+
+                                    <div class="section-label">Most recent</div>
+                                    <div class="recent-row">
+                                        <div class="recent-chip" onclick="fillPhone('airtime','08101051500')">
+                                            <div class="recent-chip-avatar">Me</div>
+                                            <div class="recent-chip-name">My number</div>
+                                        </div>
+                                        <div class="recent-chip" onclick="fillPhone('airtime','08031234567')">
+                                            <div class="recent-chip-avatar"
+                                                style="background:linear-gradient(135deg,#34d399,#4facfe)">AA
+                                            </div>
+                                            <div class="recent-chip-name">Adewale</div>
+                                        </div>
+                                        <div class="recent-chip" onclick="fillPhone('airtime','07056789012')">
+                                            <div class="recent-chip-avatar"
+                                                style="background:linear-gradient(135deg,#f87171,#a855f7)">SA
+                                            </div>
+                                            <div class="recent-chip-name">Sarah A.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="section-label">Choose network</div>
+                                    <div class="network-grid">
+                                        <button class="net-btn active" onclick="selectNet(this,'airtime')">
+                                            <div class="net-logo net-mtn">MTN</div>
+                                            <span class="net-label">MTN</span>
+                                        </button>
+                                        <button class="net-btn" onclick="selectNet(this,'airtime')">
+                                            <div class="net-logo net-airtel">AIR<br>TEL</div>
+                                            <span class="net-label">Airtel</span>
+                                        </button>
+                                        <button class="net-btn" onclick="selectNet(this,'airtime')">
+                                            <div class="net-logo net-glo">glo</div>
+                                            <span class="net-label">Glo</span>
+                                        </button>
+                                        <button class="net-btn" onclick="selectNet(this,'airtime')">
+                                            <div class="net-logo net-9mobile" style="background:#006600">9M</div>
+                                            <span class="net-label">9mobile</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="section-label">Phone number</div>
+                                    <div class="phone-input-wrap">
+                                        <div class="phone-input-inner">
+                                            <span class="phone-prefix">🇳🇬 +234</span>
+                                            <input type="tel" id="airtime-phone" placeholder="080 123 4567"
+                                                maxlength="11">
+                                            <button class="contact-btn"><i class="ti ti-address-book"></i>
+                                                Contacts</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="section-label">Choose amount</div>
+                                    <div class="quick-grid" id="airtime-quick">
+                                        <button class="quick-btn" onclick="selectAmt('airtime',200,this)">₦200</button>
+                                        <button class="quick-btn" onclick="selectAmt('airtime',500,this)">₦500</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('airtime',1000,this)">₦1,000</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('airtime',2000,this)">₦2,000</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('airtime',3000,this)">₦3,000</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('airtime',5000,this)">₦5,000</button>
+                                    </div>
+                                    <div class="amount-input-wrap">
+                                        <div class="amount-field">
+                                            <span class="amount-symbol">₦</span>
+                                            <input type="number" id="airtime-amount" placeholder="0.00"
+                                                oninput="clearQuick('airtime-quick')">
+                                        </div>
+                                    </div>
+                                    <div style="padding:0 22px 18px;font-size:11px;color:rgba(255,255,255,0.35)">Enter a
+                                        custom amount or
+                                        pick one above</div>
+
+                                    <div class="section-label">Enter Transaction PIN</div>
+                                    <div class="pin-boxes" id="airtime-pinboxes"
+                                        style="justify-content:flex-start;padding:0 22px;margin-bottom:6px;">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                    </div>
+                                    <div class="pin-error" id="airtime-pinError"
+                                        style="text-align:left;padding:0 22px;margin-bottom:12px;">Enter your 4-digit
+                                        PIN to continue.</div>
+
+                                    <div class="submit-btn-wrap">
+                                        <button class="submit-btn" onclick="nextStep('airtime')">Confirm
+                                            Purchase</button>
+                                    </div>
+                                </div>
+
+                                <div class="modal-step" id="airtime-step2">
+                                    <div class="success-body">
+                                        <div class="success-icon-circle"><i class="ti ti-check"></i></div>
+                                        <div class="success-title">Airtime sent!</div>
+                                        <div class="success-sub">Your airtime top-up was successful.</div>
+                                        <div class="success-detail" id="airtime-receipt"></div>
+                                        <button class="done-btn" onclick="closeModal('airtime')">Done</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ============ INTERNET MODAL ============ -->
+                        <div class="modal-overlay" id="modal-internet">
+                            <div class="modal-box">
+                                <div class="drag-handle"></div>
+                                <div class="modal-head">
+                                    <div class="modal-head-icon internet"><i class="ti ti-wifi"></i></div>
+                                    <div class="modal-head-text">
+                                        <div class="modal-title">Data bundle</div>
+                                        <div class="modal-subtitle">Buy mobile internet data</div>
+                                    </div>
+                                    <button class="modal-close" onclick="closeModal('internet')"><i
+                                            class="ti ti-x"></i></button>
+                                </div>
+
+                                <div class="modal-step active" id="internet-step1">
+                                    <div class="balance-strip">
+                                        <span class="balance-strip-label">Available balance</span>
+                                        <span class="balance-strip-val">₦24,810.50</span>
+                                    </div>
+
+                                    <div class="section-label">Choose network</div>
+                                    <div class="network-grid">
+                                        <button class="net-btn active" onclick="selectNet(this,'internet')">
+                                            <div class="net-logo net-mtn">MTN</div>
+                                            <span class="net-label">MTN</span>
+                                        </button>
+                                        <button class="net-btn" onclick="selectNet(this,'internet')">
+                                            <div class="net-logo net-airtel">AIR<br>TEL</div>
+                                            <span class="net-label">Airtel</span>
+                                        </button>
+                                        <button class="net-btn" onclick="selectNet(this,'internet')">
+                                            <div class="net-logo net-glo">glo</div>
+                                            <span class="net-label">Glo</span>
+                                        </button>
+                                        <button class="net-btn" onclick="selectNet(this,'internet')">
+                                            <div class="net-logo net-9mobile">9M</div>
+                                            <span class="net-label">9mobile</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="section-label">Phone number</div>
+                                    <div class="phone-input-wrap">
+                                        <div class="phone-input-inner">
+                                            <span class="phone-prefix">🇳🇬 +234</span>
+                                            <input type="tel" id="internet-phone" placeholder="080 123 4567"
+                                                maxlength="11">
+                                            <button class="contact-btn"><i class="ti ti-address-book"></i>
+                                                Contacts</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="section-label">Choose plan</div>
+                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 22px;margin-bottom:20px"
+                                        id="internet-plans">
+                                        <button class="disco-btn active"
+                                            onclick="selectPlan(this,'internet','1GB — 1 day','₦300')">
+                                            <div class="disco-icon"
+                                                style="background:rgba(79,172,254,0.15);color:#4facfe">1G</div>
+                                            <div class="disco-name">1 GB</div>
+                                            <div class="disco-sub">1 day · ₦300</div>
+                                        </button>
+                                        <button class="disco-btn"
+                                            onclick="selectPlan(this,'internet','2GB — 2 days','₦500')">
+                                            <div class="disco-icon"
+                                                style="background:rgba(52,211,153,0.15);color:#34d399">2G</div>
+                                            <div class="disco-name">2 GB</div>
+                                            <div class="disco-sub">2 days · ₦500</div>
+                                        </button>
+                                        <button class="disco-btn"
+                                            onclick="selectPlan(this,'internet','5GB — 7 days','₦1,500')">
+                                            <div class="disco-icon"
+                                                style="background:rgba(168,85,247,0.15);color:#a855f7">5G</div>
+                                            <div class="disco-name">5 GB</div>
+                                            <div class="disco-sub">7 days · ₦1,500</div>
+                                        </button>
+                                        <button class="disco-btn"
+                                            onclick="selectPlan(this,'internet','10GB — 30 days','₦3,000')">
+                                            <div class="disco-icon"
+                                                style="background:rgba(250,204,21,0.15);color:#facc15">10G</div>
+                                            <div class="disco-name">10 GB</div>
+                                            <div class="disco-sub">30 days · ₦3,000</div>
+                                        </button>
+                                    </div>
+
+                                    <input type="hidden" id="internet-plan-name" value="1GB — 1 day">
+                                    <input type="hidden" id="internet-plan-price" value="300">
+
+                                    <div class="section-label">Enter Transaction PIN</div>
+                                    <div class="pin-boxes" id="internet-pinboxes"
+                                        style="justify-content:flex-start;padding:0 22px;margin-bottom:6px;">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                    </div>
+                                    <div class="pin-error" id="internet-pinError"
+                                        style="text-align:left;padding:0 22px;margin-bottom:12px;">Enter your 4-digit
+                                        PIN to continue.</div>
+
+                                    <div class="submit-btn-wrap">
+                                        <button class="submit-btn" onclick="nextStep('internet')">Confirm
+                                            Purchase</button>
+                                    </div>
+                                </div>
+
+                                <div class="modal-step" id="internet-step2">
+                                    <div class="success-body">
+                                        <div class="success-icon-circle"><i class="ti ti-check"></i></div>
+                                        <div class="success-title">Data activated!</div>
+                                        <div class="success-sub">Your data bundle is ready to use.</div>
+                                        <div class="success-detail" id="internet-receipt"></div>
+                                        <button class="done-btn" onclick="closeModal('internet')">Done</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ============ BETTING MODAL ============ -->
+                        <div class="modal-overlay" id="modal-betting">
+                            <div class="modal-box">
+                                <div class="drag-handle"></div>
+                                <div class="modal-head">
+                                    <div class="modal-head-icon betting"><i class="ti ti-trophy"></i></div>
+                                    <div class="modal-head-text">
+                                        <div class="modal-title">Betting wallet</div>
+                                        <div class="modal-subtitle">Fund your betting account</div>
+                                    </div>
+                                    <button class="modal-close" onclick="closeModal('betting')"><i
+                                            class="ti ti-x"></i></button>
+                                </div>
+
+                                <div class="modal-step active" id="betting-step1">
+                                    <div class="balance-strip">
+                                        <span class="balance-strip-label">Available balance</span>
+                                        <span class="balance-strip-val">₦24,810.50</span>
+                                    </div>
+
+                                    <div class="section-label">Service provider</div>
+                                    <div class="provider-select-wrap">
+                                        <div class="provider-wrap">
+                                            <div class="provider-select-trigger"
+                                                onclick="toggleProviderDropdown('betting')"
+                                                id="betting-provider-trigger">
+                                                <div style="display:flex;align-items:center;gap:10px">
+                                                    <div class="provider-logo" style="background:#e8343a;color:#fff"
+                                                        id="betting-plogo">S
+                                                    </div>
+                                                    <span class="provider-name" id="betting-pname">SportyBet</span>
+                                                </div>
+                                                <i class="ti ti-chevron-down" id="betting-chevron"></i>
+                                            </div>
+                                            <div class="provider-dropdown" id="betting-dropdown">
+                                                <div class="provider-opt selected"
+                                                    onclick="pickProvider('betting','SportyBet','#e8343a','S')">
+                                                    <div class="provider-logo" style="background:#e8343a;color:#fff">S
+                                                    </div>
+                                                    <span>SportyBet</span>
+                                                </div>
+                                                <div class="provider-opt"
+                                                    onclick="pickProvider('betting','Bet9ja','#009900','B')">
+                                                    <div class="provider-logo" style="background:#009900;color:#fff">B
+                                                    </div>
+                                                    <span>Bet9ja</span>
+                                                </div>
+                                                <div class="provider-opt"
+                                                    onclick="pickProvider('betting','BetKing','#e30000','BK')">
+                                                    <div class="provider-logo"
+                                                        style="background:#e30000;color:#fff;font-size:8px">BK</div>
+                                                    <span>BetKing</span>
+                                                </div>
+                                                <div class="provider-opt"
+                                                    onclick="pickProvider('betting','1xBet','#1a66c8','1X')">
+                                                    <div class="provider-logo"
+                                                        style="background:#1a66c8;color:#fff;font-size:8px">1X</div>
+                                                    <span>1xBet</span>
+                                                </div>
+                                                <div class="provider-opt"
+                                                    onclick="pickProvider('betting','NairaBet','#1d9e75','N')">
+                                                    <div class="provider-logo" style="background:#1d9e75;color:#fff">N
+                                                    </div>
+                                                    <span>NairaBet</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="section-label">User ID</div>
+                                    <div class="text-field-wrap">
+                                        <div class="text-field">
+                                            <i class="ti ti-id"></i>
+                                            <input type="text" id="betting-userid"
+                                                placeholder="Enter your betting user ID">
+                                        </div>
+                                    </div>
+
+                                    <div class="section-label">Choose amount</div>
+                                    <div class="quick-grid" id="betting-quick">
+                                        <button class="quick-btn" onclick="selectAmt('betting',300,this)">₦300</button>
+                                        <button class="quick-btn" onclick="selectAmt('betting',500,this)">₦500</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('betting',1000,this)">₦1,000</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('betting',2000,this)">₦2,000</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('betting',5000,this)">₦5,000</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('betting',10000,this)">₦10,000</button>
+                                    </div>
+                                    <div class="amount-input-wrap">
+                                        <div class="amount-field">
+                                            <span class="amount-symbol">₦</span>
+                                            <input type="number" id="betting-amount" placeholder="0.00"
+                                                oninput="clearQuick('betting-quick')">
+                                        </div>
+                                    </div>
+                                    <div style="padding:6px 22px 20px;font-size:11px;color:rgba(255,255,255,0.35)">
+                                        Balance: ₦24,810.50</div>
+
+                                    <div class="section-label">Enter Transaction PIN</div>
+                                    <div class="pin-boxes" id="betting-pinboxes"
+                                        style="justify-content:flex-start;padding:0 22px;margin-bottom:6px;">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                    </div>
+                                    <div class="pin-error" id="betting-pinError"
+                                        style="text-align:left;padding:0 22px;margin-bottom:12px;">Enter your 4-digit
+                                        PIN to continue.</div>
+
+                                    <div class="submit-btn-wrap">
+                                        <button class="submit-btn" onclick="nextStep('betting')">Fund wallet <i
+                                                class="ti ti-arrow-right"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="modal-step" id="betting-step2">
+                                    <div class="success-body">
+                                        <div class="success-icon-circle"><i class="ti ti-check"></i></div>
+                                        <div class="success-title">Wallet funded!</div>
+                                        <div class="success-sub">Your betting wallet has been topped up.</div>
+                                        <div class="success-detail" id="betting-receipt"></div>
+                                        <button class="done-btn" onclick="closeModal('betting')">Done</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ============ ELECTRICITY MODAL ============ -->
+                        <div class="modal-overlay" id="modal-electricity">
+                            <div class="modal-box">
+                                <div class="drag-handle"></div>
+                                <div class="modal-head">
+                                    <div class="modal-head-icon electricity"><i class="ti ti-bolt"></i>
+                                    </div>
+                                    <div class="modal-head-text">
+                                        <div class="modal-title">Electricity</div>
+                                        <div class="modal-subtitle">Buy prepaid or postpaid units</div>
+                                    </div>
+                                    <button class="modal-close" onclick="closeModal('electricity')"><i
+                                            class="ti ti-x"></i></button>
+                                </div>
+
+                                <div class="modal-step active" id="electricity-step1">
+                                    <div class="balance-strip">
+                                        <span class="balance-strip-label">Available balance</span>
+                                        <span class="balance-strip-val">₦24,810.50</span>
+                                    </div>
+
+                                    <div class="section-label">Meter type</div>
+                                    <div class="meter-tabs">
+                                        <button class="meter-tab active"
+                                            onclick="selectMeterType(this,'Prepaid')">Prepaid</button>
+                                        <button class="meter-tab"
+                                            onclick="selectMeterType(this,'Postpaid')">Postpaid</button>
+                                    </div>
+                                    <input type="hidden" id="electricity-meter-type" value="Prepaid">
+
+                                    <div class="section-label">Disco (distribution company)</div>
+                                    <div class="disco-grid">
+                                        <button class="disco-btn active" onclick="selectDisco(this,'EKEDC','Lagos')">
+                                            <div class="disco-icon"
+                                                style="background:rgba(251,146,60,0.18);color:#fb923c">EKO</div>
+                                            <div class="disco-name">EKEDC</div>
+                                            <div class="disco-sub">Eko Electric</div>
+                                        </button>
+                                        <button class="disco-btn" onclick="selectDisco(this,'IKEDC','Lagos/Ogun')">
+                                            <div class="disco-icon"
+                                                style="background:rgba(79,172,254,0.18);color:#4facfe">IKJ</div>
+                                            <div class="disco-name">IKEDC</div>
+                                            <div class="disco-sub">Ikeja Electric</div>
+                                        </button>
+                                        <button class="disco-btn" onclick="selectDisco(this,'AEDC','Abuja')">
+                                            <div class="disco-icon"
+                                                style="background:rgba(168,85,247,0.18);color:#a855f7">ABJ</div>
+                                            <div class="disco-name">AEDC</div>
+                                            <div class="disco-sub">Abuja Electric</div>
+                                        </button>
+                                        <button class="disco-btn" onclick="selectDisco(this,'IBEDC','Ibadan')">
+                                            <div class="disco-icon"
+                                                style="background:rgba(52,211,153,0.18);color:#34d399">IBD</div>
+                                            <div class="disco-name">IBEDC</div>
+                                            <div class="disco-sub">Ibadan Electric</div>
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="electricity-disco" value="EKEDC">
+
+                                    <div class="section-label">Meter number</div>
+                                    <div class="text-field-wrap">
+                                        <div class="text-field">
+                                            <i class="ti ti-current-ac"></i>
+                                            <input type="text" id="electricity-meter"
+                                                placeholder="Enter 11-digit meter number" maxlength="13"
+                                                oninput="resetVerify()">
+                                            <button class="verify-btn" onclick="verifyMeter()">Verify</button>
+                                        </div>
+                                    </div>
+                                    <div class="verify-result" id="electricity-verify">
+                                        <i class="ti ti-check"></i>
+                                        <span id="electricity-verify-text"></span>
+                                    </div>
+
+                                    <div class="section-label">Choose amount</div>
+                                    <div class="quick-grid" id="electricity-quick">
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('electricity',1000,this)">₦1,000</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('electricity',2000,this)">₦2,000</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('electricity',5000,this)">₦5,000</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('electricity',10000,this)">₦10,000</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('electricity',20000,this)">₦20,000</button>
+                                        <button class="quick-btn"
+                                            onclick="selectAmt('electricity',50000,this)">₦50,000</button>
+                                    </div>
+                                    <div class="amount-input-wrap">
+                                        <div class="amount-field">
+                                            <span class="amount-symbol">₦</span>
+                                            <input type="number" id="electricity-amount" placeholder="0.00"
+                                                oninput="clearQuick('electricity-quick')">
+                                        </div>
+                                    </div>
+                                    <div style="padding:6px 22px 22px;font-size:11px;color:rgba(255,255,255,0.35)">
+                                        Minimum ₦1,000 · Token
+                                        delivered via SMS</div>
+
+                                    <div class="section-label">Enter Transaction PIN</div>
+                                    <div class="pin-boxes" id="electricity-pinboxes"
+                                        style="justify-content:flex-start;padding:0 22px;margin-bottom:6px;">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                        <input type="password" maxlength="1" class="pin-box">
+                                    </div>
+                                    <div class="pin-error" id="electricity-pinError"
+                                        style="text-align:left;padding:0 22px;margin-bottom:12px;">Enter your 4-digit
+                                        PIN to continue.</div>
+
+                                    <div class="submit-btn-wrap">
+                                        <button class="submit-btn" onclick="nextStep('electricity')">Buy units <i
+                                                class="ti ti-bolt"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="modal-step" id="electricity-step2">
+                                    <div class="success-body">
+                                        <div class="success-icon-circle"><i class="ti ti-check"></i></div>
+                                        <div class="success-title">Units purchased!</div>
+                                        <div class="success-sub">Your token has been sent to the registered phone
+                                            number.</div>
+                                        <div class="success-detail" id="electricity-receipt"></div>
+                                        <button class="done-btn" onclick="closeModal('electricity')">Done</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history-section">
+                    <div class="sec-head">
+                        <span class="sec-title">Transaction History</span>
+                        <div class="filter-row">
+                            <button class="ftab active">All</button>
+                            <button class="ftab">In</button>
+                            <button class="ftab">Out</button>
+                        </div>
+                    </div>
+                    <div class="txn-list" id="txn-list"></div>
+                </div>
+
+            </div>
+            <!-- /SECTION: DASHBOARD -->
+
+            <!-- ============================================
+                 SECTION: TRANSACTION HISTORY
+                 ============================================ -->
+            <div class="page-section" id="section-transaction">
+
+                <div class="dash-up">
+                    <div>
+                        <p>Transaction history</p>
+                    </div>
+
+
+                </div>
+
+                <div style="margin-bottom:1.5rem">
+                    <p style="font-size:13px;color:rgba(255,255,255,0.4)">Every payment, top up, and withdrawal in one
+                        place
+                    </p>
+                </div>
+
+
+                <div class="hist-toolbar">
+                    <div class="search-wrap">
+                        <i class="ti ti-search"></i>
+                        <input type="text" id="histSearch" placeholder="Search by name or note">
+                    </div>
+
+                    <div class="filter-row">
+                        <button class="ftab active" data-filter="all">All</button>
+                        <button class="ftab" data-filter="in">In</button>
+                        <button class="ftab" data-filter="out">Out</button>
+                    </div>
+
+                </div>
+
+                <!-- TRANSACTION TABLE -->
+                <div class="history-section hist-table-wrap">
+                    <table class="hist-table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th class="col-amt">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="histTableBody">
+                            <!-- rows injected by JS -->
+                        </tbody>
+                    </table>
+
+                    <div class="hist-empty" id="histEmpty" style="display:none">
+                        <i class="ti ti-receipt-off"></i>
+                        <p>No transactions match these filters</p>
+                        <span>Try a different search term or widen the date range</span>
+                    </div>
+                </div>
+
+                <div class="hist-pagination">
+                    <span id="pageInfo">Showing 0 of 0</span>
+                    <div class="page-btns">
+                        <button class="page-btn" id="prevPage" aria-label="Previous page"><i
+                                class="ti ti-chevron-left"></i></button>
+                        <button class="page-btn" id="nextPage" aria-label="Next page"><i
+                                class="ti ti-chevron-right"></i></button>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /SECTION: TRANSACTION HISTORY -->
+
+            <!-- ============================================
+                 SECTION: CARD
+                 ============================================ -->
+            <div class="page-section" id="section-card">
+
+                <div class="dash-up">
+                    <div>
+                        <p>My Card</p>
+                    </div>
+
+                </div>
+
+                <div style="margin-bottom:1.5rem">
+                    <p style="font-size:13px;color:rgba(255,255,255,0.4)">Your virtual card for online and in-app
+                        payments</p>
+                </div>
+
+                <div class="cards-grid">
+
+                    <!-- LEFT: CARD + CONTROLS -->
+                    <div>
+                        <div class="card-flip-wrap" id="cardFlipWrap">
+                            <div class="card-flip-inner">
+
+                                <!-- FRONT -->
+                                <div class="bank-card card-face card-front">
+                                    <div class="bc-shimmer"></div>
+                                    <div class="bc-shimmer2"></div>
+                                    <div class="bc-top">
+                                        <span class="bc-label-top">Clariva Bank</span>
+                                        <div class="bc-chip-icon">
+                                            <div class="bc-chip-cell"></div>
+                                            <div class="bc-chip-cell"></div>
+                                            <div class="bc-chip-cell"></div>
+                                            <div class="bc-chip-cell"></div>
+                                            <div class="bc-chip-cell"></div>
+                                            <div class="bc-chip-cell"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="bc-bottom">
+                                            <div class="bc-acct-group">
+                                                <span class="card-holder-label">Card number</span>
+                                                <div class="card-num" id="cardNumberMasked">•••• •••• •••• ••••</div>
+                                                <span class="card-holder-label">Card holder</span>
+                                                <span class=" card-name" id="virtualCardHolder"
+                                                    style="text-transform: uppercase;">loading....</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <span class="card-network">Visa</span>
+                                </div>
+
+                                <!-- BACK -->
+                                <div class="bank-card card-face card-back">
+                                    <div class="bc-shimmer"></div>
+                                    <div class="magstripe"></div>
+                                    <div class="cvv-row">
+                                        <span class="cvv-strip"></span>
+                                        <div class="cvv-box">
+                                            <span class="cvv-label">CVV</span>
+                                            <span class="cvv-val" id="cardCvv">482</span>
+                                        </div>
+                                    </div>
+                                    <p class="back-note">For your security, never share your card number or CVV with
+                                        anyone.</p>
+                                    <span class="card-network">Visa</span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <button class="flip-hint" id="flipBtn"><i class="ti ti-refresh"></i>Tap card to flip</button>
+
+                        <div class="card-toggle-row">
+                            <div class="toggle-info">
+                                <span class="toggle-title">Freeze card</span>
+                                <span class="toggle-sub">Instantly block all new transactions</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="freezeToggle">
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="action-btns">
+                            <button class="act act-topup" id="showDetailsBtn">
+                                <i class="ti ti-eye"></i> View details
+                            </button>
+                            <button class="act act-card"><i class="ti ti-settings"></i> Card settings</button>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: DETAILS + LIMITS -->
+                    <div class="cards-side">
+
+                        <div class="details-card">
+                            <div class="sec-head">
+                                <span class="sec-title">Card details</span>
+                                <span class="status-pill status-active" id="cardStatusPill">Active</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Card type</span>
+                                <span class="detail-val">Virtual debit</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Network</span>
+                                <span class="detail-val">Visa</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Linked account</span>
+                                <span class="detail-val" id="cardLinkedAccount">loading....</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Issued</span>
+                                <span class="detail-val">June 14, 2026</span>
+                            </div>
+                        </div>
+
+                        <div class="limits-card">
+                            <div class="sec-head">
+                                <span class="sec-title">Spending limit</span>
+                                <span class="limit-amt">₦150,000 / ₦300,000</span>
+                            </div>
+                            <div class="prog-bg">
+                                <div class="prog-fill" style="width:50%"></div>
+                            </div>
+                            <span class="limit-sub">Resets in 9 days</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- /SECTION: CARD -->
+
+            <!-- ============================================
+                 SECTION: ANALYTICS
+                 ============================================ -->
+            <div class="page-section" id="section-analytics">
+
+                <div class="dash-up">
+                    <div>
+                        <p>Analytics</p>
+                    </div>
+                </div>
+
+                <div class="an-toprow">
+                    <p style="font-size:13px;color:rgba(255,255,255,0.4)">Where your money comes from, and where it goes
+                    </p>
+
+                    <div class="filter-row">
+                        <button class="ftab active" data-range="6m">6 months</button>
+                        <button class="ftab" data-range="3m">3 months</button>
+                        <button class="ftab" data-range="1m">This month</button>
+                    </div>
+                </div>
+
+                <!-- SUMMARY STRIP -->
+                <div class="an-summary">
+                    <div class="an-stat">
+                        <div class="stat-label">Total income</div>
+                        <div class="stat-val stat-in" id="anIncome">₦0.00</div>
+                        <div class="stat-delta up" id="anIncomeDelta"></div>
+                    </div>
+                    <div class="an-stat">
+                        <div class="stat-label">Total spending</div>
+                        <div class="stat-val stat-out" id="anSpend">₦0.00</div>
+                        <div class="stat-delta" id="anSpendDelta"></div>
+                    </div>
+                    <div class="an-stat">
+                        <div class="stat-label">Net saved</div>
+                        <div class="stat-val" id="anNet">₦0.00</div>
+                        <div class="stat-delta" id="anNetDelta"></div>
+                    </div>
+                    <div class="an-stat">
+                        <div class="stat-label">Avg. daily spend</div>
+                        <div class="stat-val" id="anAvgDaily">₦0.00</div>
+                    </div>
+                </div>
+
+                <!-- TREND CHART -->
+                <div class="history-section an-trend-card">
+                    <div class="sec-head">
+                        <span class="sec-title">Income vs spending</span>
+                        <div class="legend-row">
+                            <span class="legend-dot dot-in"></span><span class="legend-label">Income</span>
+                            <span class="legend-dot dot-out"></span><span class="legend-label">Spending</span>
+                        </div>
+                    </div>
+                    <div class="chart-wrap">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- CATEGORY BREAKDOWN -->
+                <div class="an-bottom-grid">
+                    <div class="history-section donut-card">
+                        <div class="sec-head">
+                            <span class="sec-title">Spending by category</span>
+                        </div>
+                        <div class="donut-wrap">
+                            <canvas id="categoryDonut"></canvas>
+                            <div class="donut-center">
+                                <span class="donut-center-val" id="donutCenterVal">₦0</span>
+                                <span class="donut-center-label">this period</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="history-section cat-list-card">
+                        <div class="sec-head">
+                            <span class="sec-title">Top categories</span>
+                        </div>
+                        <div class="cat-list" id="catList"></div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /SECTION: ANALYTICS -->
+
+            <!-- ============================================
+                 SECTION: SETTINGS
+                 (re-themed to dark dashboard palette —
+                 see merged_dashboard.css .settings-section)
+                 ============================================ -->
+
+            <div class="page-section settings-section" id="section-settings">
+
+                <!-- TOPBAR: back button (replaces old CLARIVA cover strip) -->
+                <div class="settings-topbar">
+                    <span class="settings-topbar-title">Account settings</span>
+                </div>
+
+                <!-- PAGE HEADER -->
+                <div class="settings-header">
+                    <div class="settings-header__text">
+                        <span class="settings-header__eyebrow">Account</span>
+                        <h1 class="settings-header__title">Your details, on record.</h1>
+                    </div>
+                    <div class="settings-badge" aria-label="Identity verified">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                        VERIFIED · 12·03·2026
+                    </div>
+                </div>
+
+                <!-- BOOK: entries -->
+                <div class="settings-book">
+
+                    <!-- Entry 01 — Profile -->
+                    <div class="entry-card" aria-labelledby="entry-01">
+                        <div class="entry-card__head">
+                            <div class="entry-card__num">01</div>
+                            <h2 class="entry-card__title" id="entry-01">Profile</h2>
+                        </div>
+
+                        <div class="field">
+                            <label for="fullName">Full name</label>
+                            <input type="text" id="fullName" name="fullName" value="Amara Okonkwo" autocomplete="name">
+                        </div>
+
+                        <div class="field">
+                            <label for="email">Email address</label>
+                            <input type="email" id="email" name="email" value="amara.okonkwo@gmail.com"
+                                autocomplete="email">
+                            <p class="field__hint">A confirmation link is sent to verify any change.</p>
+                        </div>
+
+                        <div class="field">
+                            <label for="phone">Phone number</label>
+                            <input type="tel" id="phone" name="phone" value="+234 80 1234 5678" autocomplete="tel">
+                        </div>
+
+                        <div class="entry__actions">
+                            <button type="button" class="btn btn--ghost" id="cancelProfile">Discard</button>
+                            <button type="button" class="btn btn--primary" id="saveProfile">Save changes</button>
+                        </div>
+                    </div>
+
+                    <!-- Entry 02 — Password -->
+                    <div class="entry-card" aria-labelledby="entry-02">
+                        <div class="entry-card__head">
+                            <div class="entry-card__num">02</div>
+                            <h2 class="entry-card__title" id="entry-02">Password</h2>
+                        </div>
+
+                        <div class="field">
+                            <label for="currentPassword">Current password</label>
+                            <input type="password" id="currentPassword" name="currentPassword"
+                                autocomplete="current-password" placeholder="Enter current password">
+                        </div>
+
+                        <div class="field">
+                            <label for="newPassword">New password</label>
+                            <input type="password" id="newPassword" name="newPassword" autocomplete="new-password"
+                                placeholder="At least 10 characters">
+                        </div>
+
+                        <div class="field">
+                            <label for="confirmPassword">Confirm new password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                autocomplete="new-password" placeholder="Re-enter new password">
+                        </div>
+
+                        <div class="entry__actions">
+                            <button type="button" class="btn btn--primary" id="updatePassword">Update password</button>
+                        </div>
+                    </div>
+
+                    <!-- Entry 03 — Two-factor -->
+                    <div class="entry-card" aria-labelledby="entry-03">
+                        <div class="entry-card__head">
+                            <div class="entry-card__num">03</div>
+                            <h2 class="entry-card__title" id="entry-03">Two-factor authentication</h2>
+                        </div>
+                        <p class="entry__desc">Require a code from your phone when signing in from a new device.</p>
+
+                        <div class="toggle-row">
+                            <span class="toggle-row__status" id="twoFAStatus">Not enabled</span>
+                            <button type="button" class="settings-switch" id="twoFASwitch" role="switch"
+                                aria-checked="false" aria-label="Two-factor authentication">
+                                <span class="settings-switch__knob"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Entry 04 — Active sessions -->
+                    <div class="entry-card" aria-labelledby="entry-04">
+                        <div class="entry-card__head">
+                            <div class="entry-card__num">04</div>
+                            <h2 class="entry-card__title" id="entry-04">Active sessions</h2>
+                        </div>
+                        <p class="entry__desc" id="loginTime">Loading session data…</p>
+
+                        <div class="entry__actions entry__actions--left">
+                            <button type="button" class="btn btn--danger-ghost" id="signOutAllBtn">Sign out of all
+                                devices</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- FOOTER -->
+                <div class="settings-foot">
+                    <button type="button" id="signOutSettings" class="signout-link">Sign out</button>
+                </div>
+
+            </div>
+
+            <!-- /SECTION: SETTINGS -->
+
+            <!-- ============================================
+                 SECTION: TRANSFER
+                 (opened via the "Transfer" action button on
+                 the Dashboard section, not a nav-link)
+                 ============================================ -->
+            <!-- <div class="page-section" id="section-transfer">
+                <div class="transfer-section">
+                    <div class="transfer-card"> -->
+
+                        <!-- HEADER -->
+                        <!-- <div class="tf-head">
+                            <button class="tf-back" id="transferBackBtn" aria-label="Go back"><i
+                                    class="ti ti-arrow-left"></i></button>
+                            <div class="tf-title-wrap">
+                                <div class="tf-title">Send money</div>
+                                <div class="tf-subtitle">Fill in the details below</div>
+                            </div>
+                        </div> -->
+
+                        <!-- SINGLE FORM -->
+                        <!-- <div class="step active" data-step="1">
+                            <div class="form-group">
+                                <label class="field-label" for="recipientAcct">Account number</label>
+                                <div class="input-wrap">
+                                    <i class="ti ti-credit-card"></i>
+                                    <input type="text" id="recipientAcct" placeholder="Enter 10-digit account number"
+                                        inputmode="numeric" maxlength="10">
+                                </div>
+                            </div>
+
+                            <div class="step active" data-step="1">
+                                <div class="form-group">
+                                    <label class="field-label" for="recipientName">Account Name</label>
+                                    <div class="input-wrap">
+                                        <input type="text" id="recipientName" placeholder="Recipient name will load..."
+                                            readonly>
+                                    </div>
+                                </div> -->
+
+
+                                <!-- <div class="form-group">
+                                    <label class="field-label" for="recipientBank">Bank</label>
+                                    <div class="input-wrap">
+                                        <i class="ti ti-building-bank"></i>
+                                        <select id="recipientBank">
+                                            <option value="">Select bank</option>
+                                            <option>Clariva Bank</option>
+                                            <option>Access Bank</option>
+                                            <option>GTBank</option>
+                                            <option>Zenith Bank</option>
+                                            <option>First Bank</option>
+                                        </select>
+                                    </div>
+                                </div> -->
+
+                                <!-- <div class="recent-label">Recent recipients</div>
+                                <div class="recent-list" id="recentList">
+                                    <div class="recent-item" data-name="Mr. Bean" data-acct="1023445678"
+                                        data-bank="Clariva Bank">
+                                        <div class="recent-avatar">MB</div>
+                                        <div>
+                                            <div class="recent-name">Adewale Ayomide</div>
+                                            <div class="recent-acct">**** 5678 · Clariva Bank</div>
+                                        </div>
+                                    </div>
+                                    <div class="recent-item" data-name="Sarah Adeyemi" data-acct="0019283746"
+                                        data-bank="Clariva Bank">
+                                        <div class="recent-avatar">SA</div>
+                                        <div>
+                                            <div class="recent-name">Sarah Adeyemi</div>
+                                            <div class="recent-acct">**** 3746 · Clariva Bank</div>
+                                        </div>
+                                    </div>
+
+                                </div> -->
+
+                                <!-- <div class="form-group" style="margin-top:20px;">
+                                    <label class="field-label" for="amountInput">Amount</label>
+                                    <div class="input-wrap">
+                                        <i class="ti ti-currency-naira"></i>
+                                        <input type="text" id="amountInput" placeholder="0.00" inputmode="decimal">
+                                    </div>
+                                    <div class="balance-hint" style="text-align:left;margin-top:6px;margin-bottom:0;">
+                                        Available balance:
+                                        ₦
+                                        24,810.50</div>
+                                </div> -->
+<!-- 
+                                <div class="quick-amounts">
+                                    <button class="qa-btn" data-amt="1000">₦1000</button>
+                                    <button class="qa-btn" data-amt="2000">₦2000</button>
+                                    <button class="qa-btn" data-amt="5000">₦5000</button>
+                                    <button class="qa-btn" data-amt="10000">₦10000</button>
+                                </div> -->
+
+                                <!-- <div class="form-group">
+                                    <label class="field-label" for="noteInput">Note (optional)</label>
+                                    <div class="input-wrap">
+                                        <i class="ti ti-note"></i>
+                                        <input type="text" id="noteInput" placeholder="What's this for?">
+                                    </div>
+                                </div> -->
+
+                                <!-- <div class="form-group">
+                                    <label class="field-label">PIN</label>
+                                    <div class="pin-boxes" style="justify-content:flex-start;margin:0;">
+                                        <input type="password" inputmode="numeric" maxlength="1" class="pin-box"
+                                            data-i="0">
+                                        <input type="password" inputmode="numeric" maxlength="1" class="pin-box"
+                                            data-i="1">
+                                        <input type="password" inputmode="numeric" maxlength="1" class="pin-box"
+                                            data-i="2">
+                                        <input type="password" inputmode="numeric" maxlength="1" class="pin-box"
+                                            data-i="3">
+                                    </div>
+                                    <div class="pin-error" id="pinError" style="text-align:left;">Incorrect PIN. Try
+                                        again.</div>
+                                </div>
+
+                                <div class="tf-actions">
+                                    <button class="btn-primary" id="confirmSend" disabled>Confirm & send <i
+                                            class="ti ti-send"></i></button>
+                                </div>
+                            </div> -->
+
+                            <!-- SUCCESS -->
+                            <!-- <div class="step" data-step="2">
+                                <div class="success-wrap">
+                                    <div class="success-icon"><i class="ti ti-check"></i></div>
+                                    <div class="success-title">Transfer successful</div>
+                                    <div class="success-sub" id="successSub">Your money is on its way.</div>
+                                </div>
+                                <div class="tf-actions">
+                                    <button class="btn-primary" id="doneBtn">Done</button>
+                                    <button class="btn-secondary" id="newTransferBtn">Send another transfer</button>
+                                </div>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /SECTION: TRANSFER -->
+
+        </div>
+    </div>
+
+
+
+    <!-- Add Money Modal -->
+    <div class="modal-overlay" id="depositOverlay">
+        <div class="deposit-box" role="dialog" aria-modal="true" aria-labelledby="depositTitle">
+
+            <div class="modal-head">
+                <h2 id="depositTitle">Add Money</h2>
+                <button class="modal-close" id="depositClose" aria-label="Close">
+                    <i class="ti ti-x"></i>
+                </button>
+            </div>
+
+            <form id="depositForm">
+                <div class="modal-field">
+                    <label for="depositAccountNumber">Account number</label>
+                    <div class="modal-amount-wrap">
+                        <input type="text" id="depositAccountNumber" name="depositAccountNumber"
+                            placeholder="Enter 10-digit account number" inputmode="numeric" maxlength="10"
+                            autocomplete="off" required>
+                    </div>
+                    <p class="modal-hint" id="depositAccountError"></p>
+                </div>
+
+                <div class="modal-field">
+                    <label for="depositAmount">Amount</label>
+                    <div class="modal-amount-wrap">
+                        <span class="modal-currency">₦</span>
+                        <input type="number" id="depositAmount" name="depositAmount" placeholder="0.00" min="1"
+                            step="0.01" autocomplete="off" required>
+                    </div>
+                    <p class="modal-hint" id="depositError"></p>
+                </div>
+
+                <div class="modal-field">
+                    <label>Enter PIN</label>
+                    <div class="pin-boxes" id="deposit-pinboxes" style="justify-content:flex-start; margin-top: 10px;">
+                        <input type="password" maxlength="1" class="pin-box" style="width: 45px; height: 50px;">
+                        <input type="password" maxlength="1" class="pin-box" style="width: 45px; height: 50px;">
+                        <input type="password" maxlength="1" class="pin-box" style="width: 45px; height: 50px;">
+                        <input type="password" maxlength="1" class="pin-box" style="width: 45px; height: 50px;">
+                    </div>
+                    <p class="pin-error" id="deposit-pinError" style="text-align:left;margin-top:8px;">Enter your
+                        4-digit PIN to continue.</p>
+                </div>
+
+                <button type="submit" class="modal-submit">Confirm & Deposit</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+    <script type="module" src="../firebase/dashboardFb.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/spaNav.js"></script>
+</body>
+
+</html>
